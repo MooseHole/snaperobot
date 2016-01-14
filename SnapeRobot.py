@@ -7,12 +7,13 @@ See https://github.com/MooseHole/SnapeRobot
 import os
 import praw
 import requests
+from random import randint
 import xml.etree.ElementTree
 
 username = os.environ['REDDIT_USER']
 password = os.environ['REDDIT_PASS']
-#subreddit = "HarryPotter"
 subreddit = "Ghost_Of_Snape"
+#subreddit = "HarryPotter"
 triggerfile = "triggers.xml"
 debug = False
 
@@ -40,10 +41,12 @@ def respond(response):
 for comment in comments:
 	printdebug(comment.author)
 	response = ""
-		# Build responses to triggers
-	for trigger in triggers.findall('comment'):
-		if trigger.get('trigger') in comment.body:
-			response += trigger.get('response') + "  "
+	# Build responses to triggers
+	for trigger in triggers.findall('trigger'):
+		if trigger.get('string') in comment.body:
+			responses = trigger.findall('response')
+			responseIndex = randint(0, len(responses)-1)
+			response += responses[responseIndex].text + "  "
 
 	# If any response
 	if len(response) > 0:
