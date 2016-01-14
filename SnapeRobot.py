@@ -7,10 +7,6 @@ See https://github.com/MooseHole/SnapeRobot
 import os
 import praw
 import requests
-import psycopg2
-import urlparse
-
-cursor = conn.cursor()
 
 # Login
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
@@ -21,18 +17,23 @@ comments = r.get_comments('Slytherin')
 # Main loop
 for comment in comments:
 	response = ""
-	replied = false
-	replies = r.get_submission(comment.permalink).comments
-	for reply in replies:
-		if reply.author == os.environ['REDDIT_USER']:
-			replied = true;
 
-	if replied:
-		continue
-
-
-	if "James Potter" in comment.body and :
+	# Build responses to triggers
+	if "James Potter" in comment.body:
 		response += "That swine.  "
 
+
+	# If any response
 	if len(response) > 0:
+		# Skip if I already replied
+		replied = 0
+		replies = r.get_submission(comment.permalink).comments
+		for reply in replies:
+			if reply.author == os.environ['REDDIT_USER']:
+				replied = 1
+				break
+		if replied:
+			continue
+
+		# Reply to the comment
 		comment.reply(response)
