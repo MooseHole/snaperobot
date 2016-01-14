@@ -10,12 +10,13 @@ import requests
 from random import randint
 import xml.etree.ElementTree
 
-username = os.environ['REDDIT_USER']
-password = os.environ['REDDIT_PASS']
+triggerfile = "triggers.xml"
 subreddit = "Ghost_Of_Snape"
 #subreddit = "HarryPotter"
-triggerfile = "triggers.xml"
-debug = False
+
+username = os.environ['REDDIT_USER']
+password = os.environ['REDDIT_PASS']
+debug = os.environ['DEBUG_MODE']
 
 # Logs in
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
