@@ -15,20 +15,15 @@ password = os.environ['REDDIT_PASS']
 subreddit = "Ghost_Of_Snape"
 triggerfile = "triggers.xml"
 debug = False
-r = None
-comments = None
-triggers = None
 
 # Logs in
-def login():
-	r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
-	                'Url: https://github.com/MooseHole/SnapeRobot')
-	r.login(username, password)
+r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
+                'Url: https://github.com/MooseHole/SnapeRobo t')
+r.login(username, password)
 
 # Loads comments and triggers
-def load():
-	comments = r.get_comments(subreddit)
-	triggers = xml.etree.ElementTree.parse(triggerfile).getroot()
+comments = r.get_comments(subreddit)
+triggers = xml.etree.ElementTree.parse(triggerfile).getroot()
 
 
 # Prints a message if the debug flag is true
@@ -42,9 +37,6 @@ def respond(response):
 	printdebug(response)
 
 # Main loop
-login()
-load()
-
 for comment in comments:
 	printdebug(comment.author)
 	response = ""
