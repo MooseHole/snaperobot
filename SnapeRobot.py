@@ -28,6 +28,7 @@ r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
                 'Url: https://github.com/MooseHole/SnapeRobo t')
 
 # Loads comments and triggers
+r.login(username, password)
 comments = r.get_comments(subreddit)
 triggers = xml.etree.ElementTree.parse(triggerfile).getroot()
 
@@ -77,7 +78,6 @@ for comment in comments:
 		conn.commit()
 
 		# Reply to the comment
-		r.login(username, password)
 		respond(response, conn)
 
 		# Stop responding until next time
