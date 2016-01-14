@@ -74,8 +74,8 @@ for comment in comments:
 			responses = trigger.findall('response')
 			responseIndex = randint(0, len(responses)-1)
 			response += responses[responseIndex].text + "  "
-			ID = comment.id
-			break
+		ID = comment.id
+		break
 
 	cursor.close()
 
