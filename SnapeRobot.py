@@ -64,18 +64,14 @@ for comment in comments:
 
 	# Skip if I already replied
 	cursor.execute('SELECT ID FROM "Responded" WHERE ID=\'' + comment.id + '\' LIMIT 1')
-	if cursor.rowcount > 0:
-		cursor.close()
-		continue
-
-	# Build responses to triggers
-	for trigger in triggers.findall('trigger'):
-		if trigger.get('string') in comment.body:
-			responses = trigger.findall('response')
-			responseIndex = randint(0, len(responses)-1)
-			response += responses[responseIndex].text + "  "
-		ID = comment.id
-		break
+	if not cursor.rowcount:
+		# Build responses to triggers
+		for trigger in triggers.findall('trigger'):
+			if trigger.get('string') in comment.body:
+				responses = trigger.findall('response')
+				responseIndex = randint(0, len(responses)-1)
+				response += responses[responseIndex].text + "  "
+				ID = comment.id
 
 	cursor.close()
 
