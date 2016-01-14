@@ -56,14 +56,14 @@ for comment in comments:
 	cursor = conn.cursor()
 
 	# Skip if I already replied
-	cursor.execute('SELECT ID FROM "Responded" WHERE ID = ' + comment.id + ' LIMIT 1')
+	cursor.execute('SELECT ID FROM "Responded" WHERE ID = "' + comment.id + '" LIMIT 1')
 	if cursor.rowcount > 0:
 		cursor.close()
 		continue
 
 	# Make sure I don't reply again
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO "Responded" (ID) VALUES (' + comment.id + ')')
+	cursor.execute('INSERT INTO "Responded" (ID) VALUES ("' + comment.id + '")')
 	conn.commit()
 
 
