@@ -26,7 +26,6 @@ url = urlparse.urlparse(os.environ["DATABASE_URL"])
 # Logs in
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
                 'Url: https://github.com/MooseHole/SnapeRobo t')
-r.login(username, password)
 
 # Loads comments and triggers
 comments = r.get_comments(subreddit)
@@ -46,7 +45,7 @@ def printdebug(message):
 		print(message)
 
 # Responds to a comment
-def respond(response, conn):
+def respond(response):
 	comment.reply(response)
 	printdebug(response)
 
@@ -78,6 +77,7 @@ for comment in comments:
 		conn.commit()
 
 		# Reply to the comment
+		r.login(username, password)
 		respond(response, conn)
 
 		# Stop responding until next time
