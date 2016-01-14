@@ -7,6 +7,8 @@ See https://github.com/MooseHole/SnapeRobot
 import os
 import praw
 import requests
+import psycopg2
+from urllib.parse import urlparse
 from random import randint
 import xml.etree.ElementTree
 
@@ -17,6 +19,7 @@ subreddit = "Ghost_Of_Snape"
 username = os.environ['REDDIT_USER']
 password = os.environ['REDDIT_PASS']
 debug = os.environ['DEBUG_MODE']
+url = urlparse(os.environ["DATABASE_URL"])
 
 # Logs in
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
@@ -27,6 +30,14 @@ r.login(username, password)
 comments = r.get_comments(subreddit)
 triggers = xml.etree.ElementTree.parse(triggerfile).getroot()
 
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+
 
 # Prints a message if the debug flag is true
 def printdebug(message):
@@ -34,13 +45,27 @@ def printdebug(message):
 		print(message)
 
 # Responds to a comment
-def respond(response):
+def respond(response, conn):
 	comment.reply(response)
 	printdebug(response)
 
 # Main loop
 for comment in comments:
 	printdebug(comment.author)
+	cursor = conn.cursor()
+
+	# Skip if I already replied
+	cursor.execute('SELECT "ID" FROM "Responded" WHERE "ID" = ' + comment.id + ' LIMIT 1')
+	if cursor.rowcount > 0:
+		cursor.close()
+		continue
+
+	# Make sure I don't reply again
+	cursor = conn.cursor()
+	cursor.execute('INSERT INTO "Responded" ("ID") VALUES (' + comment.id + ')')
+	conn.commit()
+
+
 	response = ""
 	# Build responses to triggers
 	for trigger in triggers.findall('trigger'):
@@ -51,17 +76,9 @@ for comment in comments:
 
 	# If any response
 	if len(response) > 0:
-		# Skip if I already replied
-		replied = False
-		replies = r.get_submission(comment.permalink).comments
-		for reply in replies:
-			if reply.author == username:
-				replied = True
-				break
-		if replied:
-			continue
-
 		# Reply to the comment
-		respond(response)
+		respond(response, conn)
 
-	
+	cursor.close()
+
+conn.close()
