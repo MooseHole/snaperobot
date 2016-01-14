@@ -8,7 +8,7 @@ import os
 import praw
 import requests
 import psycopg2
-from urllib.parse import urlparse
+import urlparse
 from random import randint
 import xml.etree.ElementTree
 
@@ -19,7 +19,9 @@ subreddit = "Ghost_Of_Snape"
 username = os.environ['REDDIT_USER']
 password = os.environ['REDDIT_PASS']
 debug = os.environ['DEBUG_MODE']
-url = urlparse(os.environ["DATABASE_URL"])
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
 # Logs in
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
