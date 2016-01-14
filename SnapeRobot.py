@@ -56,7 +56,7 @@ for comment in comments:
 	cursor = conn.cursor()
 
 	# Skip if I already replied
-	cursor.execute('SELECT ID FROM "Responded" WHERE ID = "' + comment.id + '" LIMIT 1')
+	cursor.execute('SELECT ID FROM "Responded" WHERE ID="' + comment.id + '" LIMIT 1')
 	if cursor.rowcount > 0:
 		cursor.close()
 		continue
