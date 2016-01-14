@@ -76,9 +76,10 @@ for comment in comments:
 		cursor = conn.cursor()
 		cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + comment.id + '\')')
 		conn.commit()
+		printdebug(comment.id)
 
 		# Reply to the comment
-		respond(response, conn)
+		respond(response)
 
 		# Stop responding until next time
 		cursor.close()
