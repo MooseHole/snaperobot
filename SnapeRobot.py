@@ -42,32 +42,30 @@ def respond(response):
 	printdebug(response)
 
 # Main loop
-while True:
-	login()
-	load()
+login()
+load()
 
-	for comment in comments:
-		printdebug(comment.author)
-		response = ""
-
+for comment in comments:
+	printdebug(comment.author)
+	response = ""
 		# Build responses to triggers
-		for trigger in triggers.findall('comment'):
-			if trigger.get('trigger') in comment.body:
-				response += trigger.get('response') + "  "
+	for trigger in triggers.findall('comment'):
+		if trigger.get('trigger') in comment.body:
+			response += trigger.get('response') + "  "
 
-		# If any response
-		if len(response) > 0:
-			# Skip if I already replied
-			replied = False
-			replies = r.get_submission(comment.permalink).comments
-			for reply in replies:
-				if reply.author == username:
-					replied = True
-					break
-			if replied:
-				continue
+	# If any response
+	if len(response) > 0:
+		# Skip if I already replied
+		replied = False
+		replies = r.get_submission(comment.permalink).comments
+		for reply in replies:
+			if reply.author == username:
+				replied = True
+				break
+		if replied:
+			continue
 
-			# Reply to the comment
-			respond(response)
+		# Reply to the comment
+		respond(response)
 
 	
