@@ -61,11 +61,6 @@ for comment in comments:
 		cursor.close()
 		continue
 
-	# Make sure I don't reply again
-	cursor = conn.cursor()
-	cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + comment.id + '\')')
-	conn.commit()
-
 
 	response = ""
 	# Build responses to triggers
@@ -77,6 +72,11 @@ for comment in comments:
 
 	# If any response
 	if len(response) > 0:
+		# Make sure I don't reply again
+		cursor = conn.cursor()
+		cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + comment.id + '\')')
+		conn.commit()
+
 		# Reply to the comment
 		respond(response, conn)
 
