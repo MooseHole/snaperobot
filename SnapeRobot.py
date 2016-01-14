@@ -8,7 +8,7 @@ import os
 import praw
 import requests
 import psycopg2
-import urllib
+from urllib.parse import urlparse
 from random import randint
 import xml.etree.ElementTree
 
@@ -19,7 +19,7 @@ subreddit = "Ghost_Of_Snape"
 username = os.environ['REDDIT_USER']
 password = os.environ['REDDIT_PASS']
 debug = os.environ['DEBUG_MODE']
-url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+url = urlparse(os.environ["DATABASE_URL"])
 
 # Logs in
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
@@ -37,7 +37,6 @@ conn = psycopg2.connect(
     host=url.hostname,
     port=url.port
 )
-
 
 # Prints a message if the debug flag is true
 def printdebug(message):
