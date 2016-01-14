@@ -15,9 +15,9 @@ password = os.environ['REDDIT_PASS']
 subreddit = "Ghost_Of_Snape"
 triggerfile = "triggers.xml"
 debug = False
-r = null
-comments = null
-triggers = null
+r = None
+comments = None
+triggers = None
 
 # Logs in
 def login():
