@@ -7,33 +7,57 @@ See https://github.com/MooseHole/SnapeRobot
 import os
 import praw
 import requests
+import xml.etree.ElementTree
+
+username = os.environ['REDDIT_USER']
+password = os.environ['REDDIT_PASS']
+#subreddit = "HarryPotter"
+subreddit = "Slytherin"
+triggerfile = "triggers.xml"
+debug = False
 
 # Login
 r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
                 'Url: https://github.com/MooseHole/SnapeRobot')
-r.login(os.environ['REDDIT_USER'], os.environ['REDDIT_PASS'])
-comments = r.get_comments('Slytherin')
+r.login(username, password)
+
+# Load comments and triggers
+comments = r.get_comments(subreddit)
+triggers = xml.etree.ElementTree.parse(triggerfile).getroot()
+
+
+# Prints a message if the debug flag is true
+def printdebug(message):
+	if (debug):
+		print(message)
+
+# Responds to a comment
+def respond(response):
+	comment.reply(response)
+	printdebug(response)
 
 # Main loop
 for comment in comments:
+	printdebug(comment.author)
 	response = ""
 
 	# Build responses to triggers
-	if "James Potter" in comment.body:
-		response += "That swine.  "
-
+	for trigger in triggers.findall('comment'):
+		if trigger.get('trigger') in comment.body:
+			response += trigger.get('response') + "  "
 
 	# If any response
 	if len(response) > 0:
 		# Skip if I already replied
-		replied = 0
+		replied = False
 		replies = r.get_submission(comment.permalink).comments
 		for reply in replies:
-			if reply.author == os.environ['REDDIT_USER']:
-				replied = 1
+			if reply.author == username:
+				replied = True
 				break
 		if replied:
 			continue
 
 		# Reply to the comment
-		comment.reply(response)
+		respond(response)
+
