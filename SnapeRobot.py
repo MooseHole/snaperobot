@@ -50,8 +50,15 @@ def respond(response):
 	comment.reply(response)
 	printdebug(response)
 
+
+response = ""
+ID = None
+
 # Main loop
 for comment in comments:
+	if ID is not None:
+		break
+
 	printdebug(comment.author)
 	cursor = conn.cursor()
 
@@ -61,29 +68,27 @@ for comment in comments:
 		cursor.close()
 		continue
 
-
-	response = ""
 	# Build responses to triggers
 	for trigger in triggers.findall('trigger'):
 		if trigger.get('string') in comment.body:
 			responses = trigger.findall('response')
 			responseIndex = randint(0, len(responses)-1)
 			response += responses[responseIndex].text + "  "
+			ID = comment.id
+			break
 
-	# If any response
-	if len(response) > 0:
-		# Make sure I don't reply again
-		cursor = conn.cursor()
-		cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + comment.id + '\')')
-		conn.commit()
-		printdebug(comment.id)
+	cursor.close()
 
-		# Reply to the comment
-		respond(response)
+# If any response
+if ID is not None and len(response) > 0:
+	# Make sure I don't reply again
+	cursor = conn.cursor()
+	cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + comment.id + '\')')
+	conn.commit()
+	printdebug(comment.id)
 
-		# Stop responding until next time
-		cursor.close()
-		break
+	# Reply to the comment
+	respond(response)
 
 	cursor.close()
 
