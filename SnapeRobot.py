@@ -80,6 +80,10 @@ for comment in comments:
 		# Reply to the comment
 		respond(response, conn)
 
+		# Stop responding until next time
+		cursor.close()
+		break
+
 	cursor.close()
 
 conn.close()
