@@ -83,7 +83,7 @@ for comment in comments:
 if ID is not None and len(response) > 0:
 	# Make sure I don't reply again
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + comment.id + '\')')
+	cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + ID + '\')')
 	conn.commit()
 	printdebug(comment.id)
 
