@@ -25,7 +25,10 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-cursor.execute('CREATE TABLE "Responded" (ID varchar(255))')
+cursor.execute('DROP TABLE "Responded"')
+conn.commit()
+
+cursor.execute('CREATE TABLE "Responded" (ID varchar(255) not null, timestamp timestamp default current_timestamp)')
 conn.commit()
 
 cursor.close()
