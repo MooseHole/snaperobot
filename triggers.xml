@@ -41,4 +41,7 @@
 	<trigger string="Padfoot">
 		<response>No idea.</response>
 	</trigger>
+	<trigger string="Hermione">
+		<response>Five points from Gryffindor for being an insufferable know it all.</response>
+	</trigger>
 </triggers>
