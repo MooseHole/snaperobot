@@ -13,8 +13,8 @@ from random import randint
 import xml.etree.ElementTree
 
 triggerfile = "triggers.xml"
-#subreddit = "Ghost_Of_Snape"
-subreddit = "HarryPotter"
+subreddit = "Ghost_Of_Snape"
+#subreddit = "HarryPotter"
 
 username = os.environ['REDDIT_USER']
 password = os.environ['REDDIT_PASS']
@@ -52,6 +52,7 @@ def respond(response):
 	printdebug(response)
 
 
+possibleResponses = Set()
 response = ""
 ID = None
 
@@ -64,7 +65,7 @@ for comment in comments:
 
 	cursor = conn.cursor()
 	# Skip if I already replied
-	cursor.execute('SELECT ID FROM "Responded" WHERE ID=\'' + comment.id + '\' LIMIT 1')
+	cursor.execute('SELECT ID FROM "Responded" WHERE ID=\'' + comment.submission.id + '\' LIMIT 1')
 	if not cursor.rowcount:
 		# Build responses to triggers
 		for trigger in triggers:
@@ -72,8 +73,11 @@ for comment in comments:
 				printdebug(trigger.get('string'))
 				responses = trigger.findall('response')
 				responseIndex = randint(0, len(responses)-1)
-				response += responses[responseIndex].text + "  "
-				ID = comment.id
+				possibleResponses.add(responses[responseIndex].text)
+		
+		if len(possibleResponses) > 0:
+			response = possibleResponses[randint(0, len(possibleResponses))]
+			ID = comment.submission.id
 
 	cursor.close()
 
