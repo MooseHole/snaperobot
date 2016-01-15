@@ -59,7 +59,7 @@ ID = None
 for comment in comments:
 	printdebug(comment.author)
 
-	if username in comment.author:
+	if username == comment.author:
 		continue
 
 	cursor = conn.cursor()
