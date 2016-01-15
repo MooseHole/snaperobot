@@ -11,7 +11,7 @@ import psycopg2
 import urlparse
 from random import randint
 import xml.etree.ElementTree
-t
+
 triggerfile = "triggers.xml"
 subreddit = "Ghost_Of_Snape"
 #subreddit = "HarryPotter"
