@@ -58,8 +58,11 @@ ID = None
 # Main loop
 for comment in comments:
 	printdebug(comment.author)
-	cursor = conn.cursor()
 
+	if username in comment.author:
+		continue
+
+	cursor = conn.cursor()
 	# Skip if I already replied
 	cursor.execute('SELECT ID FROM "Responded" WHERE ID=\'' + comment.id + '\' LIMIT 1')
 	if not cursor.rowcount:
