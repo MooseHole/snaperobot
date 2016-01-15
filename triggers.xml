@@ -10,7 +10,7 @@
 		<response>Those impudent brats.</response>
 	</trigger>
 	<trigger string="Dumbledore">
-		<response>More like Bumbledore am I right?</response>
+		<response>More like Bumblebore am I right?</response>
 	</trigger>
 	<trigger string="Slytherin">
 		<response>Five points to Slytherin!</response>
