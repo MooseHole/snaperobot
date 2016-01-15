@@ -24,7 +24,7 @@
 		<response>Do I detect a flicker of fear?  Ah, yes. The Dementor's Kiss.  One can only imagine what that must be like to endure.  It's said to be nearly unbearable to witness, but I'll do my best.</response>
 		<response>Perhaps Potter will grow up to be a felon, just like his godfather! </response>
 	</trigger>
-	<trigger string="Harry">
+	<trigger string="Harry REMOVED BECAUSE IT IS TOO COMMON">
 		<response>Mr. Potter.  Our.  New.  Celebrity.</response>
 		<response>How grand it must be, to be the chosen one.</response>
 		<response>It is easy to see that nearly six years of magical experience have not been wasted on you, Potter.  Ghosts are transparent.</response>
