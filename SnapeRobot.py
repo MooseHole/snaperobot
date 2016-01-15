@@ -13,8 +13,8 @@ from random import randint
 import xml.etree.ElementTree
 
 triggerfile = "triggers.xml"
-subreddit = "Ghost_Of_Snape"
-#subreddit = "HarryPotter"
+#subreddit = "Ghost_Of_Snape"
+subreddit = "HarryPotter"
 
 username = os.environ['REDDIT_USER']
 password = os.environ['REDDIT_PASS']
