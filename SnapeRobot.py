@@ -83,14 +83,17 @@ for comment in comments:
 
 # If any response
 if ID is not None and len(response) > 0:
-	# Make sure I don't reply again
-	cursor = conn.cursor()
-	cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + ID + '\')')
-	conn.commit()
-	printdebug(ID)
-
 	# Reply to the comment
-	respond(response)
+	try:
+		respond(response)
+
+		# Make sure I don't reply again
+		cursor = conn.cursor()
+		cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + ID + '\')')
+		conn.commit()
+		printdebug(ID)
+	except reddit.errors.RateLimitExceeded:
+		pass
 
 	cursor.close()
 
