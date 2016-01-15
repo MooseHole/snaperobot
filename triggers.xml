@@ -47,5 +47,6 @@
 	</trigger>
 	<trigger string="Ron">
 		<response>Weasley’s wand causes devastation with the simplest spells.  We’ll be sending Potter to the hospital wing in a matchbox.</response>
+		<response>Ronald Weasley, the boy so solid he cannot Apparate half an inch across a room.</response>
 	</trigger>
 </triggers>
