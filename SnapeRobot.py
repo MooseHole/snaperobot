@@ -10,7 +10,7 @@ import requests
 import psycopg2
 import urlparse
 from sets import Set
-from random import randint
+import random
 import xml.etree.ElementTree
 
 triggerfile = "triggers.xml"
@@ -73,11 +73,11 @@ for comment in comments:
 			if trigger.get('string') in comment.body:
 				printdebug(trigger.get('string'))
 				responses = trigger.findall('response')
-				responseIndex = randint(0, len(responses)-1)
+				responseIndex = random.randint(0, len(responses)-1)
 				possibleResponses.add(responses[responseIndex].text)
 		
 		if len(possibleResponses) > 0:
-			response = possibleResponses[randint(0, len(possibleResponses))]
+			response = random.sample(possibleResponses, 1).pop()
 			ID = comment.submission.id
 
 	cursor.close()
