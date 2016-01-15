@@ -4,7 +4,7 @@
 		<response>He's such a sniveling coward.</response>
 	</trigger>
 	<trigger string="Griffindor">
-		<response>Those brainless slobberworms!</response>
+		<response>Those brainless flobberworms!</response>
 	</trigger>
 	<trigger string="Marauders">
 		<response>Those impudent brats.</response>
@@ -14,5 +14,17 @@
 	</trigger>
 	<trigger string="Slytherin">
 		<response>Five points to Slytherin!</response>
+	</trigger>
+	<trigger string="Lupin">
+		<response>Turn to page 394.</response>
+		<response>Out for a little walk in the moonlight are we?</response>
+	</trigger>
+	<trigger string="Sirius">
+		<response>I may vomit.</response>
+		<response>Do I detect a flicker of fear?  Ah, yes. The Dementor's Kiss.  One can only imagine what that must be like to endure.  It's said to be nearly unbearable to witness, but I'll do my best.</response>
+	</trigger>
+	<trigger string="Harry Potter">
+		<response>Mr. Potter.  Our.  New.  Celebrity.</response>
+		<response>How grand it must be, to be the chosen one.</response>
 	</trigger>
 </triggers>
