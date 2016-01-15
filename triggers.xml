@@ -1,7 +1,7 @@
 <triggers>
 	<trigger string="James">
 		<response>That Swine.</response>
-		<response>He's such a sniveling coward.</response>
+		<response>Lazy, arrogant, weak.</response>
 	</trigger>
 	<trigger string="Griffindor">
 		<response>Those brainless flobberworms!</response>
@@ -22,6 +22,7 @@
 	<trigger string="Sirius">
 		<response>I may vomit.</response>
 		<response>Do I detect a flicker of fear?  Ah, yes. The Dementor's Kiss.  One can only imagine what that must be like to endure.  It's said to be nearly unbearable to witness, but I'll do my best.</response>
+		<response>Perhaps Potter will grow up to be a felon, just like his godfather! </response>
 	</trigger>
 	<trigger string="Harry">
 		<response>Mr. Potter.  Our.  New.  Celebrity.</response>
@@ -30,5 +31,14 @@
 	<trigger string="Lily">
 		<response>No one... can know.</response>
 		<response>Always.</response>
+	</trigger>
+	<trigger string="Cormac">
+		<response>You've just earned yourself detention for a month, McClaggen.</response>
+	</trigger>
+	<trigger string="Half Blood">
+		<response>Yes. I'm the Half Blood Prince.</response>
+	</trigger>
+	<trigger string="Padfoot">
+		<response>No idea.</response>
 	</trigger>
 </triggers>
