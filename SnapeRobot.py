@@ -9,6 +9,7 @@ import praw
 import requests
 import psycopg2
 import urlparse
+from sets import Set
 from random import randint
 import xml.etree.ElementTree
 
