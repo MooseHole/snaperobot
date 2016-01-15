@@ -11,7 +11,7 @@ import psycopg2
 import urlparse
 from random import randint
 import xml.etree.ElementTree
-
+t
 triggerfile = "triggers.xml"
 subreddit = "Ghost_Of_Snape"
 #subreddit = "HarryPotter"
@@ -30,7 +30,8 @@ r = praw.Reddit('python:moosehole.Ghost_Of_Snape:v0.0.1 (by /u/Moose_Hole)'
 # Loads comments and triggers
 r.login(username, password)
 comments = r.get_comments(subreddit)
-triggers = xml.etree.ElementTree.parse(triggerfile).getroot()
+triggerRoot = xml.etree.ElementTree.parse(triggerfile).getroot()
+triggers = triggerRoot.findall('trigger')
 
 conn = psycopg2.connect(
     database=url.path[1:],
@@ -56,9 +57,6 @@ ID = None
 
 # Main loop
 for comment in comments:
-	if ID is not None:
-		break
-
 	printdebug(comment.author)
 	cursor = conn.cursor()
 
@@ -66,8 +64,9 @@ for comment in comments:
 	cursor.execute('SELECT ID FROM "Responded" WHERE ID=\'' + comment.id + '\' LIMIT 1')
 	if not cursor.rowcount:
 		# Build responses to triggers
-		for trigger in triggers.findall('trigger'):
+		for trigger in triggers:
 			if trigger.get('string') in comment.body:
+				printdebug(trigger.get('string'))
 				responses = trigger.findall('response')
 				responseIndex = randint(0, len(responses)-1)
 				response += responses[responseIndex].text + "  "
@@ -75,13 +74,17 @@ for comment in comments:
 
 	cursor.close()
 
+	if ID is not None:
+		break
+
+
 # If any response
 if ID is not None and len(response) > 0:
 	# Make sure I don't reply again
 	cursor = conn.cursor()
 	cursor.execute('INSERT INTO "Responded" (ID) VALUES (\'' + ID + '\')')
 	conn.commit()
-	printdebug(comment.id)
+	printdebug(ID)
 
 	# Reply to the comment
 	respond(response)
