@@ -45,4 +45,7 @@
 	<trigger string="Hermione">
 		<response>Five points from Gryffindor for being an insufferable know it all.</response>
 	</trigger>
+	<trigger string="Ron">
+		<response>Weasley’s wand causes devastation with the simplest spells.  We’ll be sending Potter to the hospital wing in a matchbox.</response>
+	</trigger>
 </triggers>
