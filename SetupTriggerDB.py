@@ -25,8 +25,8 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-#cursor.execute('DROP TABLE "Triggers"')
-#conn.commit()
+cursor.execute('DROP TABLE "Triggers"')
+conn.commit()
 
 cursor.execute('CREATE TABLE "Triggers" (id BIGSERIAL PRIMARY KEY, Trigger varchar(255) not null, Response varchar(255) not null)')
 conn.commit()
