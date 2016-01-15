@@ -27,6 +27,7 @@
 	<trigger string="Harry">
 		<response>Mr. Potter.  Our.  New.  Celebrity.</response>
 		<response>How grand it must be, to be the chosen one.</response>
+		<response>It is easy to see that nearly six years of magical experience have not been wasted on you, Potter.  Ghosts are transparent.</response>
 	</trigger>
 	<trigger string="Lily">
 		<response>No one... can know.</response>
