@@ -1,2 +1,3 @@
 worker: python SnapeRobot.py
-rebuild: python SetupDB.py
+rebuildResponses: python SetupDB.py
+rebuildTriggers: pythonTriggerDB.py
