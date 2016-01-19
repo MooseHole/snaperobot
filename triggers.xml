@@ -3,7 +3,7 @@
 		<response>That Swine.</response>
 		<response>Lazy, arrogant, weak.</response>
 	</trigger>
-	<trigger string="Griffindor">
+	<trigger string="Gryffindor">
 		<response>Those brainless flobberworms!</response>
 	</trigger>
 	<trigger string="Marauders">
